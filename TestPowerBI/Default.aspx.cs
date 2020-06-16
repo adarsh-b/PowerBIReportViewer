@@ -23,5 +23,10 @@ namespace BIReports
         {
             Response.Redirect("/BIDashboard.aspx");
         }
+
+        protected void embedReportButton1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/BIReportRowLevelSecurity.aspx");
+        }
     }
 }

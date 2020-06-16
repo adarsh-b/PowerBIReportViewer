@@ -10,6 +10,10 @@
     <div>
         <asp:Button ID="embedReport" runat="server" OnClick="embedReportButton_Click" Text="View Report" />
     </div>
+
+    <div>
+        <asp:Button ID="embedReport1" runat="server" OnClick="embedReportButton1_Click" Text="Row Level Security Report" />
+    </div>
     <div>
         <asp:Button ID="embedDashboard" runat="server" OnClick="embedDashboardButton_Click" Text="View Dashboard" />
     </div>
