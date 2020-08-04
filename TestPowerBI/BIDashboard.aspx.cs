@@ -11,6 +11,7 @@ using Microsoft.PowerBI.Api.Models;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace BIReports
 {
@@ -18,6 +19,12 @@ namespace BIReports
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
+               | SecurityProtocolType.Tls11
+               | SecurityProtocolType.Tls12
+               | SecurityProtocolType.Ssl3;
+
             if (!Page.IsPostBack)
             {
                 //Test for AuthenticationResult
@@ -52,7 +59,7 @@ namespace BIReports
 
             using (var client = new PowerBIClient(new Uri(powerBiApiUrl), new TokenCredentials(Utils.authResult.AccessToken, "Bearer")))
             {
-                dashboards = client.Dashboards.GetDashboards().Value.ToList();
+                dashboards = client.Dashboards.GetDashboards(GetParamGuid(ConfigurationManager.AppSettings["WorkspaceID"])).Value.ToList();
             }
 
             ddlReports.DataSource = dashboards;
@@ -63,13 +70,20 @@ namespace BIReports
             if (ddlReports.Items.Count > 0)
             {
                 ddlReports.SelectedIndex = 0;
-                txtEmbedUrl.Text = ddlReports.SelectedItem.Value;
+                txtEmbedUrl.Text = ddlReports.SelectedItem.Value + "&filter=Domain_MSTR/DomainId eq 'jl'"; ;
             }
         }
 
         protected void ddlReports_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtEmbedUrl.Text = ddlReports.SelectedItem.Value;
+            txtEmbedUrl.Text = ddlReports.SelectedItem.Value + "&filter=Domain_MSTR/DomainId eq 'dk'";
+        }
+
+        private static Guid GetParamGuid(string param)
+        {
+            Guid paramGuid = Guid.Empty;
+            Guid.TryParse(param, out paramGuid);
+            return paramGuid;
         }
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.PowerBI.Api.Models;
 using Microsoft.Rest;
 using System.Configuration;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace BIReports
 {
@@ -15,6 +16,12 @@ namespace BIReports
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
+               | SecurityProtocolType.Tls11
+               | SecurityProtocolType.Tls12
+               | SecurityProtocolType.Ssl3;
+
             if (!Page.IsPostBack)
             {
                 if (Session[Utils.authResultString] != null)

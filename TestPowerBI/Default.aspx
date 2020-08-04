@@ -17,4 +17,7 @@
     <div>
         <asp:Button ID="embedDashboard" runat="server" OnClick="embedDashboardButton_Click" Text="View Dashboard" />
     </div>
+    <div>
+        <asp:Button ID="advancedSettingsDemo" runat="server" OnClick="advancedSettingsDemoButton_Click" Text="View Advanced Report" />
+    </div>
 </asp:Content>

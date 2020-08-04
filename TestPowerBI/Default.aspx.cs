@@ -28,5 +28,10 @@ namespace BIReports
         {
             Response.Redirect("/BIReportRowLevelSecurity.aspx");
         }
+
+        protected void advancedSettingsDemoButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/AdvancedSettingsDemo.aspx");
+        }
     }
 }
